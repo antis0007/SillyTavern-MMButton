@@ -7,12 +7,16 @@
 const BUTTON_ID = 'mmPlusButton';
 const CORE_ATTACH_ID = 'attachFile';
 
+/**
+ * Inject the (+) button in correct position
+ */
 function injectPlusButton() {
-    const leftForm = document.getElementById('leftSendForm');
-    if (!leftForm) return;
-
-    // Prevent duplicate button
     if (document.getElementById(BUTTON_ID)) return;
+
+    const optionsButton = document.getElementById('options_button');
+    const extensionsButton = document.getElementById('extensionsMenuButton');
+
+    if (!optionsButton && !extensionsButton) return;
 
     const plusButton = document.createElement('div');
     plusButton.id = BUTTON_ID;
@@ -33,22 +37,33 @@ function injectPlusButton() {
         }
     });
 
-    leftForm.append(plusButton);
+    // Insert after extensions button if it exists
+    if (extensionsButton) {
+        extensionsButton.insertAdjacentElement('afterend', plusButton);
+    }
+    // Otherwise insert after options button
+    else if (optionsButton) {
+        optionsButton.insertAdjacentElement('afterend', plusButton);
+    }
 }
 
 /**
- * Wait until UI is ready before injecting
+ * Observe DOM for when buttons appear
  */
-function waitForUI() {
-    const interval = setInterval(() => {
-        const leftForm = document.getElementById('leftSendForm');
-        if (leftForm) {
-            injectPlusButton();
-            clearInterval(interval);
-        }
-    }, 500);
+function observeUI() {
+    const observer = new MutationObserver(() => {
+        injectPlusButton();
+    });
+
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+
+    // Try immediately too
+    injectPlusButton();
 }
 
 jQuery(() => {
-    waitForUI();
+    observeUI();
 });
