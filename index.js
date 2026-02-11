@@ -13,10 +13,8 @@ const CORE_ATTACH_ID = 'attachFile';
 function injectPlusButton() {
     if (document.getElementById(BUTTON_ID)) return;
 
-    const extensionsButton = document.getElementById('extensionsMenuButton');
-    const optionsButton = document.getElementById('options_button');
-
-    if (!extensionsButton && !optionsButton) return;
+    const leftForm = document.getElementById('leftSendForm');
+    if (!leftForm) return;
 
     const plusButton = document.createElement('div');
     plusButton.id = BUTTON_ID;
@@ -25,10 +23,10 @@ function injectPlusButton() {
     plusButton.setAttribute('title', 'Attach File');
 
     plusButton.innerHTML = `
-        <div style="font-size:38px;font-weight:bold;line-height:1;">+</div>
+        <div style="font-size:28px;font-weight:bold;line-height:1;">+</div>
     `;
 
-    // Force flex behavior
+    // Match ST button sizing
     plusButton.style.display = 'inline-flex';
     plusButton.style.alignItems = 'center';
     plusButton.style.justifyContent = 'center';
@@ -46,13 +44,10 @@ function injectPlusButton() {
         }
     });
 
-    // Insert after extensions button
-    if (extensionsButton) {
-        extensionsButton.insertAdjacentElement('afterend', plusButton);
-    } else if (optionsButton) {
-        optionsButton.insertAdjacentElement('afterend', plusButton);
-    }
+    // Insert as FIRST child because flex is row-reverse
+    leftForm.insertBefore(plusButton, leftForm.firstChild);
 }
+
 
 /**
  * Observe DOM for when buttons appear
