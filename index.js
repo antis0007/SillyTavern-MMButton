@@ -13,37 +13,27 @@ const CORE_ATTACH_ID = 'attachFile';
 function injectPlusButton() {
     if (document.getElementById(BUTTON_ID)) return;
 
-    const extensionsButton = document.getElementById('extensionsMenuButton');
-    if (!extensionsButton) return;
+    const rightForm = document.getElementById('rightSendForm');
+    if (!rightForm) return;
 
     const plusButton = document.createElement('div');
     plusButton.id = BUTTON_ID;
-    plusButton.classList.add('interactable');
+    plusButton.className = 'fa-solid fa-plus interactable';
     plusButton.setAttribute('tabindex', '0');
     plusButton.setAttribute('title', 'Attach File');
-
-    plusButton.innerHTML = `
-        <div style="font-size:28px;font-weight:bold;line-height:1;">+</div>
-    `;
-
-    // Match ST button sizing
-    plusButton.style.display = 'inline-flex';
-    plusButton.style.alignItems = 'center';
-    plusButton.style.justifyContent = 'center';
-    plusButton.style.width = '32px';
-    plusButton.style.height = '32px';
-    plusButton.style.minWidth = '32px';
-    plusButton.style.minHeight = '32px';
-    plusButton.style.margin = '0 2px';
-    plusButton.style.flexShrink = '0';
 
     plusButton.addEventListener('click', () => {
         const attachButton = document.getElementById(CORE_ATTACH_ID);
         if (attachButton) attachButton.click();
     });
 
-    // Insert AFTER extensions menu
-    extensionsButton.insertAdjacentElement('afterend', plusButton);
+    // Insert before send button
+    const sendButton = document.getElementById('send_but');
+    if (sendButton) {
+        rightForm.insertBefore(plusButton, sendButton);
+    } else {
+        rightForm.appendChild(plusButton);
+    }
 }
 
 
