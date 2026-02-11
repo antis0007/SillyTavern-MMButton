@@ -21,7 +21,7 @@ function injectPlusButton() {
     plusButton.setAttribute('title', 'Attach File');
 
     plusButton.innerHTML = `
-        <div style="font-size:18px;font-weight:bold;line-height:1;">+</div>
+        <div style="font-size:28px;font-weight:bold;line-height:1;">+</div>
     `;
 
     plusButton.addEventListener('click', () => {
@@ -33,7 +33,7 @@ function injectPlusButton() {
         }
     });
 
-    leftForm.prepend(plusButton);
+    leftForm.append(plusButton);
 }
 
 /**
