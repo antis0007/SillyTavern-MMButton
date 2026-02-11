@@ -13,10 +13,10 @@ const CORE_ATTACH_ID = 'attachFile';
 function injectPlusButton() {
     if (document.getElementById(BUTTON_ID)) return;
 
-    const optionsButton = document.getElementById('options_button');
     const extensionsButton = document.getElementById('extensionsMenuButton');
+    const optionsButton = document.getElementById('options_button');
 
-    if (!optionsButton && !extensionsButton) return;
+    if (!extensionsButton && !optionsButton) return;
 
     const plusButton = document.createElement('div');
     plusButton.id = BUTTON_ID;
@@ -25,24 +25,31 @@ function injectPlusButton() {
     plusButton.setAttribute('title', 'Attach File');
 
     plusButton.innerHTML = `
-        <div style="font-size:28px;font-weight:bold;line-height:1;">+</div>
+        <div style="font-size:38px;font-weight:bold;line-height:1;">+</div>
     `;
+
+    // Force flex behavior
+    plusButton.style.display = 'inline-flex';
+    plusButton.style.alignItems = 'center';
+    plusButton.style.justifyContent = 'center';
+    plusButton.style.width = '32px';
+    plusButton.style.height = '32px';
+    plusButton.style.minWidth = '32px';
+    plusButton.style.minHeight = '32px';
+    plusButton.style.margin = '0 2px';
+    plusButton.style.flexShrink = '0';
 
     plusButton.addEventListener('click', () => {
         const attachButton = document.getElementById(CORE_ATTACH_ID);
         if (attachButton) {
             attachButton.click();
-        } else {
-            console.warn('[MMButton] #attachFile not found.');
         }
     });
 
-    // Insert after extensions button if it exists
+    // Insert after extensions button
     if (extensionsButton) {
         extensionsButton.insertAdjacentElement('afterend', plusButton);
-    }
-    // Otherwise insert after options button
-    else if (optionsButton) {
+    } else if (optionsButton) {
         optionsButton.insertAdjacentElement('afterend', plusButton);
     }
 }
