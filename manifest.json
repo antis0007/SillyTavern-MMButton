@@ -1,0 +1,12 @@
+{
+    "display_name": "MMButton",
+    "loading_order": 200,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "css": "style.css",
+    "author": "antis0007",
+    "version": "1.0.0",
+    "homePage": "https://github.com/antis0007/SillyTavern-MMButton",
+    "auto_update": true
+}
