@@ -13,8 +13,8 @@ const CORE_ATTACH_ID = 'attachFile';
 function injectPlusButton() {
     if (document.getElementById(BUTTON_ID)) return;
 
-    const rightForm = document.getElementById('rightSendForm');
-    if (!rightForm) return;
+    const leftForm = document.getElementById('leftSendForm');
+    if (!leftForm) return;
 
     const plusButton = document.createElement('div');
     plusButton.id = BUTTON_ID;
@@ -22,18 +22,15 @@ function injectPlusButton() {
     plusButton.setAttribute('tabindex', '0');
     plusButton.setAttribute('title', 'Attach File');
 
+    // Make it align to the right edge of leftSendForm
+    plusButton.style.marginLeft = 'auto';
+
     plusButton.addEventListener('click', () => {
         const attachButton = document.getElementById(CORE_ATTACH_ID);
         if (attachButton) attachButton.click();
     });
 
-    // Insert before send button
-    const sendButton = document.getElementById('send_but');
-    if (sendButton) {
-        rightForm.insertBefore(plusButton, sendButton);
-    } else {
-        rightForm.appendChild(plusButton);
-    }
+    leftForm.appendChild(plusButton);
 }
 
 
