@@ -13,8 +13,8 @@ const CORE_ATTACH_ID = 'attachFile';
 function injectPlusButton() {
     if (document.getElementById(BUTTON_ID)) return;
 
-    const leftForm = document.getElementById('leftSendForm');
-    if (!leftForm) return;
+    const extensionsButton = document.getElementById('extensionsMenuButton');
+    if (!extensionsButton) return;
 
     const plusButton = document.createElement('div');
     plusButton.id = BUTTON_ID;
@@ -39,14 +39,13 @@ function injectPlusButton() {
 
     plusButton.addEventListener('click', () => {
         const attachButton = document.getElementById(CORE_ATTACH_ID);
-        if (attachButton) {
-            attachButton.click();
-        }
+        if (attachButton) attachButton.click();
     });
 
-    // Insert as FIRST child because flex is row-reverse
-    leftForm.insertBefore(plusButton, leftForm.firstChild);
+    // Insert AFTER extensions menu
+    extensionsButton.insertAdjacentElement('afterend', plusButton);
 }
+
 
 
 /**
